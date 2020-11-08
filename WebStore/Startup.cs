@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,12 +29,15 @@ namespace WebStore
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
 
-            var utf8 = Encoding.UTF8;
-            string greet = Configuration["CustomGreetings"];
-            byte[] utfBytes = utf8.GetBytes(greet);
+            app.UseStaticFiles(); // выдавать файлы и картинки иначе не даст
+            app.UseDefaultFiles();
+            // подключаем конвеер обработки вх запросов
+            // указываем какие файлы вадавать при необходимости
+            //app.UseStaticFiles(new StaticFileOptions(new SharedOptions() {})); 
+
+
 
             app.UseEndpoints(endpoints =>
             {
