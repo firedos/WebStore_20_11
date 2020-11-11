@@ -19,7 +19,8 @@ namespace WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-             
+            //services.AddMvc(); // ƒл€ 2.2
+            services.AddControllersWithViews(); // ƒл€ 3.1 и выше
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,22 +30,26 @@ namespace WebStore
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseRouting();
-
             app.UseStaticFiles(); // выдавать файлы и картинки иначе не даст
             app.UseDefaultFiles();
             // подключаем конвеер обработки вх запросов
             // указываем какие файлы вадавать при необходимости
             //app.UseStaticFiles(new StaticFileOptions(new SharedOptions() {})); 
-
+            app.UseRouting();
 
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
+                endpoints.MapGet("/greetings", async context =>
                 {
                     await context.Response.WriteAsync(Configuration["CustomGreetings"]);
                 });
+
+                endpoints.MapControllerRoute(
+                    name:       "default",
+                    //pattern:    "Home/Index/Id"   // Ёквивалентно LocalHost:5000/Home/Index/id
+                    pattern: "{controller=Home}/{action=Index}/{id?}"   // Ёквивалентно LocalHost:5000/Home/Index/id
+                );
             });
         }
     }
