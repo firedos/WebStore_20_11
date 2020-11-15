@@ -20,7 +20,8 @@ namespace WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddMvc(); // Для 2.2
-            services.AddControllersWithViews(); // Для 3.1 и выше
+            //services.AddControllersWithViews(); // Для 3.1 и выше
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,4 +54,4 @@ namespace WebStore
             });
         }
     }
-}
+} 
