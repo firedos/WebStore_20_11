@@ -8,7 +8,7 @@
 <div class="container">
     <h3>@ViewData["Title"]</h3>
     <hr />
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="employees-table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -36,3 +36,18 @@
         </tbody>
     </table>
 </div>
+
+@*И добавляем ему(id="employees-table") стиль*@
+@section Styles{
+    <style>
+        #employees-table {
+            background: gray
+        }
+    </style>
+}
+
+@*И аналогично добавляем секцию скриптов*@
+@section Scripts{
+    <script>QWE</script>
+}
+
