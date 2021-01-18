@@ -30,6 +30,7 @@ namespace WebStore
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
             app.UseStaticFiles(); // выдавать файлы и картинки иначе не даст
             app.UseDefaultFiles();
