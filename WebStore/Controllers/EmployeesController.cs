@@ -7,6 +7,7 @@ using WebStore.Models;
 
 namespace WebStore.Controllers
 {
+    //[Route("users")]
     public class EmployeesController : Controller
     {
         public static readonly List<Employee> __Employees = new List<Employee>
@@ -15,8 +16,11 @@ namespace WebStore.Controllers
             new Employee{ Id = 2, SurName = "Петров", FirstName = "Петр", Patronymic = "Петрович", Age = 19 },
             new Employee{ Id = 3, SurName = "Сидоров", FirstName = "Сидр", Patronymic = "Сидорович", Age = 22 },
         };
+        
+        //[Route("employees")]
         public IActionResult Index() => View(__Employees);
 
+        //[Route("employee/{id}")]
         /// <summary>карточка отдельного сотрудника</summary>
         /// <returns></returns>
         public IActionResult Details(int Id)
