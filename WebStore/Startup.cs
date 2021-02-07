@@ -39,6 +39,7 @@ namespace WebStore
             //app.UseStaticFiles(new StaticFileOptions(new SharedOptions() {})); 
             app.UseRouting();
 
+            app.UseWelcomePage("/welcom");
 
             app.UseEndpoints(endpoints =>
             {
