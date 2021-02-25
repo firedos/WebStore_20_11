@@ -36,9 +36,9 @@ namespace WebStore.Infrastructure.Interfaces
         /// Удаление по id
         /// </summary>
         /// <param name="id"></param>
-        void Delete(int id);
+        bool Delete(int id);
 
-        void SaveChange()
+        void SaveChange();
 
     }
 }
