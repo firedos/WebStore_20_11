@@ -10,14 +10,11 @@ using WebStore.Models;
 namespace WebStore.Controllers
 {
     //[Route("users")]
-    class EmployeesController : Controller
+    public class EmployeesController : Controller
     {
         private readonly IEmployeesData _EmployeesData;
 
-        public EmployeesController(IEmployeesData employeesData)
-        {
-            _EmployeesData = employeesData;
-        }
+        public EmployeesController(IEmployeesData employeesData) => _EmployeesData = employeesData;
 
         //[Route("employees")]
         public IActionResult Index() => View(_EmployeesData.GetAll());
@@ -34,6 +31,59 @@ namespace WebStore.Controllers
                 return NotFound();
             }
             return View(employees);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id is null) return View(new Employee());
+            if (id < 0) return BadRequest();
+            var employee = _EmployeesData.GetById((int)id);
+            if (employee is null) return NotFound();
+            return View(employee);
+        }
+
+        public IActionResult Create()
+        {
+            return View(new Employee());
+        }
+
+        
+
+        [HttpPost]
+        public IActionResult Create(Employee employee)
+        {  
+            if (employee is null)
+                throw new ArgumentNullException(nameof(employee));
+            
+            //проверяем что с моделью все впорядке
+            if (!ModelState.IsValid) return View(employee);
+
+            _EmployeesData.Add(employee);
+            _EmployeesData.SaveChange();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        /// <summary>
+        /// Ответная часть по кнопке Сохранить из формы 
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        public IActionResult Edit(Employee employee)
+        {
+            if (employee is null)
+                throw new ArgumentNullException(nameof(employee));
+
+            //проверяем что с моделью все впорядке
+            if (!ModelState.IsValid) return View(employee);
+
+            var id = employee.Id;
+            if (id == 0) _EmployeesData.Add(employee);
+            else
+                _EmployeesData.Edit(id, employee);
+
+            _EmployeesData.SaveChange();
+            return RedirectToAction("Index");
         }
     }
 }
