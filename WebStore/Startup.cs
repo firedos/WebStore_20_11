@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
+using WebStore.Infrastructure.Interfaces;
+using WebStore.Infrastructure.Services;
 
 namespace WebStore
 {
@@ -22,6 +24,7 @@ namespace WebStore
             //services.AddMvc(); // Для 2.2
             //services.AddControllersWithViews(); // Для 3.1 и выше
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddSingleton<IEmployeesData, InMemoryEmpoyeesData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +42,7 @@ namespace WebStore
             //app.UseStaticFiles(new StaticFileOptions(new SharedOptions() {})); 
             app.UseRouting();
 
+            app.UseWelcomePage("/welcom");
 
             app.UseEndpoints(endpoints =>
             {

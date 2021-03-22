@@ -7,6 +7,8 @@
 
 <div class="container">
     <h3>@ViewData["Title"]</h3>
+    <a asp-action="Edit" class="btn btn-success">Создать через Edit</a>
+    <a asp-action="Create" class="btn btn-success">Создать через Create</a>
     <hr />
     <table class="table table-bordered" id="employees-table">
         <thead>
@@ -17,21 +19,28 @@
                 <th>Отчество</th>
                 <th>Возраст</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var emp in Model)
             {
-                <tr>
-                    <td>@emp.Id</td>
-                    <td>@emp.SurName</td>
-                    <td>@emp.FirstName</td>
-                    <td>@emp.Patronymic</td>
-                    <td>@emp.Age</td>
-                    <td>
-                        <a asp-controller="Employees" asp-action="Details" asp-route-Id="@emp.Id">Карточка</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>@emp.Id</td>
+                <td>@emp.SurName</td>
+                <td>@emp.FirstName</td>
+                <td>@emp.Patronymic</td>
+                <td>@emp.Age</td>
+                <td>
+                    <a asp-controller="Employees" asp-action="Details" asp-route-Id="@emp.Id">Карточка</a>
+                </td>
+                <td>
+                    <a asp-controller="Employees" asp-action="Edit" asp-route-Id="@emp.Id">Edit</a>
+                </td>
+                <td>
+                    <a asp-controller="Employees" asp-action="Delete" asp-route-Id="@emp.Id" class="text-danger">Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
