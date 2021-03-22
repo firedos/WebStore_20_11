@@ -47,14 +47,14 @@ namespace WebStore.Controllers
             return View(new Employee());
         }
 
-        
+
 
         [HttpPost]
         public IActionResult Create(Employee employee)
-        {  
+        {
             if (employee is null)
                 throw new ArgumentNullException(nameof(employee));
-            
+
             //проверяем что с моделью все впорядке
             if (!ModelState.IsValid) return View(employee);
 
@@ -82,6 +82,21 @@ namespace WebStore.Controllers
             else
                 _EmployeesData.Edit(id, employee);
 
+            _EmployeesData.SaveChange();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (id <= 0) return BadRequest();
+            var employee = _EmployeesData.GetById(id);
+            if (employee is null) return NotFound();
+            return View(employee);
+        }
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _EmployeesData.Delete(id);
             _EmployeesData.SaveChange();
             return RedirectToAction("Index");
         }
